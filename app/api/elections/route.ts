@@ -1,4 +1,4 @@
-// POST /api/elections — create a new election with a list of candidates
+// POST /api/elections - create a new election with a list of candidates
 import { NextRequest, NextResponse } from 'next/server'
 import { getSupabaseAdmin } from '@/lib/supabase'
 

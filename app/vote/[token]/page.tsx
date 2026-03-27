@@ -35,7 +35,7 @@ export default function VotePage() {
   const [submitError, setSubmitError] = useState('')
   const [submitted, setSubmitted] = useState(false)
 
-  // ── Initial load ────────────────────────────────────────────────────────────
+  // Initial load
   useEffect(() => {
     fetch(`/api/vote/${token}`)
       .then(async (res) => {
@@ -49,7 +49,7 @@ export default function VotePage() {
       .finally(() => setLoading(false))
   }, [token])
 
-  // ── Realtime subscriptions ──────────────────────────────────────────────────
+  // Realtime subscriptions
   // Only active when election is in 'lobby' phase
   useEffect(() => {
     if (!data?.electionId) return
@@ -99,7 +99,7 @@ export default function VotePage() {
     return () => { supabase.removeChannel(channel) }
   }, [data?.electionId, token])
 
-  // ── Vote submission ─────────────────────────────────────────────────────────
+  // Vote submission
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!selected) { setSubmitError('Please select someone to vote for.'); return }
@@ -125,7 +125,7 @@ export default function VotePage() {
     }
   }
 
-  // ── Loading ──────────────────────────────────────────────────────────────────
+  // Loading
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center py-32 gap-4">
@@ -148,7 +148,7 @@ export default function VotePage() {
   const { voter, election, voterEliminated } = data
   const liveStatus = electionStatus ?? election.status
 
-  // ── Eliminated ──────────────────────────────────────────────────────────────
+  // Eliminated
   if (voterEliminated) {
     return (
       <div className="max-w-md mx-auto text-center py-16 space-y-4">
@@ -161,7 +161,7 @@ export default function VotePage() {
     )
   }
 
-  // ── Election ended ──────────────────────────────────────────────────────────
+  // Election ended
   if (liveStatus === 'completed') {
     return (
       <div className="max-w-md mx-auto text-center py-16 space-y-4">
@@ -174,7 +174,7 @@ export default function VotePage() {
     )
   }
 
-  // ── LOBBY — waiting for admin to open voting ────────────────────────────────
+  // LOBBY - waiting for admin to open voting
   if (liveStatus === 'lobby') {
     return (
       <div className="max-w-lg mx-auto space-y-8 py-4">
@@ -183,7 +183,7 @@ export default function VotePage() {
           <div className="w-16 h-16 rounded-full bg-amber-100 flex items-center justify-center text-3xl mx-auto">⏳</div>
           <h1 className="text-2xl font-extrabold text-gray-900">{election.title}</h1>
           <p className="text-gray-500">
-            You're registered, <strong>{voter.name}</strong>. Voting hasn't started yet — the admin will open the round shortly.
+            You're registered, <strong>{voter.name}</strong>. Voting hasn't started yet - the admin will open the round shortly.
           </p>
           <span className="inline-flex items-center gap-1.5 bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1.5 rounded-full">
             <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
@@ -214,14 +214,14 @@ export default function VotePage() {
             ))}
           </div>
           <p className="text-xs text-gray-400 mt-4">
-            🔴 Live — this page updates automatically when new people join or when voting opens.
+            🔴 Live - this page updates automatically when new people join or when voting opens.
           </p>
         </div>
       </div>
     )
   }
 
-  // ── Already voted ────────────────────────────────────────────────────────────
+  // Already voted
   if (submitted) {
     return (
       <div className="max-w-md mx-auto text-center py-16 space-y-6">
@@ -244,7 +244,7 @@ export default function VotePage() {
     )
   }
 
-  // ── Ballot ────────────────────────────────────────────────────────────────────
+  // Ballot
   return (
     <div className="max-w-lg mx-auto space-y-8">
       <div>
@@ -308,7 +308,7 @@ export default function VotePage() {
         >
           {submitting ? 'Submitting…' : 'Submit Vote'}
         </button>
-        <p className="text-xs text-gray-400 text-center">Your vote is final — you cannot change it once submitted.</p>
+        <p className="text-xs text-gray-400 text-center">Your vote is final - you cannot change it once submitted.</p>
       </form>
     </div>
   )

@@ -1,4 +1,4 @@
-// POST /api/advance/[adminToken] — advance the election to the next round
+// POST /api/advance/[adminToken] - advance the election to the next round
 // Candidates who received zero votes in the current round are eliminated.
 import { NextRequest, NextResponse } from 'next/server'
 import { getSupabaseAdmin } from '@/lib/supabase'
@@ -66,7 +66,7 @@ export async function POST(
     // 5. Check how many candidates remain after elimination
     const remaining = activeCandidates.length - toEliminate.length
 
-    // 6a. If only 1 (or 0) remain — end the election
+    // 6a. If only 1 (or 0) remain - end the election
     if (remaining <= 1) {
       await supabase
         .from('elections')
@@ -93,7 +93,7 @@ export async function POST(
   }
 }
 
-// POST /api/advance/[adminToken] with body { end: true } — manually end the election
+// POST /api/advance/[adminToken] with body { end: true } - manually end the election
 export async function DELETE(
   _request: NextRequest,
   { params }: { params: { adminToken: string } },

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'PeerVote — Multi-Round Peer Voting',
+  title: 'PeerVote - Multi-Round Peer Voting',
   description: 'Run transparent multi-round peer voting sessions with shareable links.',
 }
 

@@ -19,7 +19,7 @@ export async function POST(
       return NextResponse.json({ error: 'A valid email address is required.' }, { status: 400 })
     }
 
-    // 1. Fetch election — must exist and be in 'lobby' status
+    // 1. Fetch election - must exist and be in 'lobby' status
     const { data: election } = await supabase
       .from('elections')
       .select('id, title, status')

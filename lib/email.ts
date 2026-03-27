@@ -5,7 +5,7 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 const FROM = process.env.RESEND_FROM_EMAIL ?? 'PeerVote <onboarding@resend.dev>'
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
 
-// ── Send voting link to a newly registered participant ────────────────────────
+// Send voting link to a newly registered participant
 export async function sendVotingLink({
   to,
   name,
@@ -36,7 +36,7 @@ export async function sendVotingLink({
     <h2 style="margin: 0 0 8px; color: #111827; font-size: 20px;">Hi ${name} 👋</h2>
     <p style="color: #4b5563; margin: 0 0 24px; line-height: 1.6;">
       You're registered for <strong style="color: #7c3aed;">${electionTitle}</strong>.
-      Voting hasn't started yet — the admin will open the round shortly.
+      Voting hasn't started yet - the admin will open the round shortly.
     </p>
 
     <p style="color: #374151; font-weight: 600; margin: 0 0 12px;">Your personal voting link:</p>

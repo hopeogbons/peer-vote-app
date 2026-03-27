@@ -1,4 +1,4 @@
-// GET /api/admin/[adminToken] — full election state for the admin dashboard
+// GET /api/admin/[adminToken] - full election state for the admin dashboard
 import { NextRequest, NextResponse } from 'next/server'
 import { getSupabaseAdmin } from '@/lib/supabase'
 

@@ -1,5 +1,5 @@
-// GET  /api/vote/[token] — get ballot info for this voter
-// POST /api/vote/[token] — submit a vote
+// GET  /api/vote/[token] - get ballot info for this voter
+// POST /api/vote/[token] - submit a vote
 import { NextRequest, NextResponse } from 'next/server'
 import { getSupabaseAdmin } from '@/lib/supabase'
 

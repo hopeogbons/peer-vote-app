@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback, useRef } from 'react'
 import { useParams } from 'next/navigation'
 import { getSupabaseClient } from '@/lib/supabase'
 
-// ── Types ─────────────────────────────────────────────────────────────────────
+// Types
 
 interface Candidate {
   id: string
@@ -30,7 +30,7 @@ interface Election {
   status: 'lobby' | 'voting' | 'completed'
 }
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
+// Helpers
 
 function voteLink(token: string) {
   return typeof window !== 'undefined' ? `${window.location.origin}/vote/${token}` : ''
@@ -51,7 +51,7 @@ function useCopy() {
   return { copied, copy }
 }
 
-// ── Main component ────────────────────────────────────────────────────────────
+// Main component
 
 export default function AdminPage() {
   const { adminToken } = useParams<{ adminToken: string }>()
@@ -100,7 +100,7 @@ export default function AdminPage() {
 
   fetchDataRef.current = fetchData
 
-  // ── Initial load + Realtime ───────────────────────────────────────────────
+  // Initial load + Realtime
 
   useEffect(() => {
     fetchData()
@@ -133,7 +133,7 @@ export default function AdminPage() {
     return () => { supabase.removeChannel(channel) }
   }, [election?.id])
 
-  // ── Derived data ──────────────────────────────────────────────────────────
+  // Derived data
 
   const round = election?.current_round ?? 1
   const active = candidates.filter((c) => c.eliminated_in_round === null)
@@ -152,7 +152,7 @@ export default function AdminPage() {
   }
   const sortedTally = Object.values(tally).sort((a, b) => b.count - a.count)
 
-  // ── Actions ───────────────────────────────────────────────────────────────
+  // Actions
 
   async function doControl(action: 'open-voting' | 'end-election') {
     setConfirm(null)
@@ -224,7 +224,7 @@ export default function AdminPage() {
         setAddMsg(`Error: ${data.error}`)
       } else {
         setAddMsg(
-          `✅ ${data.candidate.name} added.${data.emailSent ? ' Email sent!' : addEmail ? ' ⚠️ Email failed — share link manually.' : ''}`,
+          `✅ ${data.candidate.name} added.${data.emailSent ? ' Email sent!' : addEmail ? ' ⚠️ Email failed - share link manually.' : ''}`,
         )
         setAddName('')
         setAddEmail('')
@@ -237,7 +237,7 @@ export default function AdminPage() {
     }
   }
 
-  // ── Loading / error ───────────────────────────────────────────────────────
+  // Loading / error
 
   if (loading) {
     return (
@@ -255,7 +255,7 @@ export default function AdminPage() {
     )
   }
 
-  // ── Phase badges ──────────────────────────────────────────────────────────
+  // Phase badges
 
   const phaseBadge: Record<string, { label: string; cls: string }> = {
     lobby:     { label: '🚪 Lobby open', cls: 'bg-amber-100 text-amber-800' },
@@ -264,12 +264,12 @@ export default function AdminPage() {
   }
   const phase = phaseBadge[election.status]
 
-  // ── Render ────────────────────────────────────────────────────────────────
+  // Render
 
   return (
     <div className="space-y-8">
 
-      {/* ── Header ─────────────────────────────────────────────────────────── */}
+      {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
         <div>
           <p className="text-sm text-violet-600 font-semibold uppercase tracking-widest mb-1">Admin Dashboard</p>
@@ -316,7 +316,7 @@ export default function AdminPage() {
         </div>
       </div>
 
-      {/* ── Confirm modal ───────────────────────────────────────────────────── */}
+      {/* Confirm modal */}
       {confirm && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl shadow-2xl p-6 max-w-sm w-full space-y-4">
@@ -354,19 +354,19 @@ export default function AdminPage() {
         </div>
       )}
 
-      {/* ── Action result ───────────────────────────────────────────────────── */}
+      {/* Action result */}
       {actionMsg && (
         <div className={`rounded-xl p-4 text-sm font-medium ${actionMsg.type === 'ok' ? 'bg-violet-50 border border-violet-200 text-violet-800' : 'bg-red-50 border border-red-200 text-red-700'}`}>
           {actionMsg.text}
         </div>
       )}
 
-      {/* ── Stats bar ──────────────────────────────────────────────────────── */}
+      {/* Stats bar */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
           { label: 'Registered', value: candidates.length },
           { label: election.status === 'lobby' ? 'Need to vote' : 'Active this round', value: active.length },
-          { label: 'Voted this round', value: election.status === 'voting' ? `${votedCount}/${active.length}` : '—' },
+          { label: 'Voted this round', value: election.status === 'voting' ? `${votedCount}/${active.length}` : '-' },
           { label: 'Eliminated', value: eliminated.length },
         ].map((s) => (
           <div key={s.label} className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
@@ -398,7 +398,7 @@ export default function AdminPage() {
             </div>
           </section>
 
-          {/* Lobby participant list — real-time */}
+          {/* Lobby participant list - real-time */}
           <section>
             <div className="flex items-center justify-between mb-3">
               <h2 className="text-lg font-bold text-gray-900">
@@ -438,7 +438,7 @@ export default function AdminPage() {
         <>
           {/* Voting links */}
           <section>
-            <h2 className="text-lg font-bold text-gray-900 mb-1">Voting Links — Round {round}</h2>
+            <h2 className="text-lg font-bold text-gray-900 mb-1">Voting Links - Round {round}</h2>
             <p className="text-sm text-gray-500 mb-3">
               These links were emailed automatically. You can copy and re-share any individual link here.
             </p>
@@ -475,7 +475,7 @@ export default function AdminPage() {
           {/* Live tally */}
           {roundVotes.length > 0 && (
             <section>
-              <h2 className="text-lg font-bold text-gray-900 mb-3">Round {round} — Live Tally</h2>
+              <h2 className="text-lg font-bold text-gray-900 mb-3">Round {round} - Live Tally</h2>
               <div className="space-y-3">
                 {sortedTally.map(({ candidate, count, voteList }) => (
                   <div key={candidate.id} className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
@@ -613,7 +613,7 @@ export default function AdminPage() {
                 <div className="flex flex-wrap gap-2">
                   {Object.values(rTally).sort((a, b) => b.count - a.count).map((t) => (
                     <span key={t.name} className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-sm text-gray-700 shadow-sm">
-                      {t.name} — {t.count} vote{t.count !== 1 ? 's' : ''}
+                      {t.name} - {t.count} vote{t.count !== 1 ? 's' : ''}
                     </span>
                   ))}
                 </div>

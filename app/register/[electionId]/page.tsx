@@ -37,7 +37,7 @@ export default function RegisterPage() {
     voteToken?: string
   } | null>(null)
 
-  // ── Initial load ────────────────────────────────────────────────────────────
+  // Initial load
   useEffect(() => {
     const supabase = getSupabaseClient()
 
@@ -59,7 +59,7 @@ export default function RegisterPage() {
     }
     load()
 
-    // ── Realtime: new participants joining ───────────────────────────────────
+    // Realtime: new participants joining
     const channel = supabase
       .channel(`register-${electionId}`)
       .on(
@@ -88,7 +88,7 @@ export default function RegisterPage() {
     return () => { supabase.removeChannel(channel) }
   }, [electionId])
 
-  // ── Submit registration ──────────────────────────────────────────────────────
+  // Submit registration
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setFormError('')
@@ -112,7 +112,7 @@ export default function RegisterPage() {
     }
   }
 
-  // ── Render ────────────────────────────────────────────────────────────────────
+  // Render
 
   if (loading) {
     return (
@@ -164,7 +164,7 @@ export default function RegisterPage() {
             <p className="text-lg font-semibold text-violet-800">📧 Check your inbox</p>
             <p className="text-sm text-violet-700">
               We've sent your personal voting link to <strong>{email}</strong>.
-              Keep it safe — you'll use it when voting opens.
+              Keep it safe - you'll use it when voting opens.
             </p>
           </div>
         ) : (
@@ -220,7 +220,7 @@ export default function RegisterPage() {
     )
   }
 
-  // ── Registration form ─────────────────────────────────────────────────────────
+  // Registration form
   return (
     <div className="max-w-lg mx-auto space-y-8">
 
@@ -323,7 +323,7 @@ export default function RegisterPage() {
           )}
 
           <p className="text-xs text-gray-400 border-t border-gray-100 pt-3">
-            🔴 Live — updates automatically
+            🔴 Live - updates automatically
           </p>
         </div>
       </div>

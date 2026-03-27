@@ -18,7 +18,7 @@ export default function HomePage() {
       const res = await fetch('/api/elections', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        // No candidates — they self-register via the registration link
+        // No candidates - they self-register via the registration link
         body: JSON.stringify({ title: title.trim(), candidates: [] }),
       })
       const data = await res.json()
@@ -41,7 +41,7 @@ export default function HomePage() {
         </h1>
         <p className="text-gray-500 text-lg">
           Share a sign-up link, let participants self-register, then open voting
-          when you're ready — with real-time results and multi-round support.
+          when you're ready - with real-time results and multi-round support.
         </p>
       </div>
 
@@ -77,7 +77,7 @@ export default function HomePage() {
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            placeholder="e.g. Employee of the Quarter — Q1 2026"
+            placeholder="e.g. Employee of the Quarter - Q1 2026"
             className="w-full border-2 border-gray-200 focus:border-violet-400 rounded-xl px-4 py-3 text-sm outline-none transition-colors"
             autoFocus
           />
@@ -106,7 +106,7 @@ export default function HomePage() {
         </button>
 
         <p className="text-xs text-gray-400 text-center">
-          Bookmark your admin link — it's the only way to manage this election.
+          Bookmark your admin link - it's the only way to manage this election.
         </p>
       </form>
     </div>
