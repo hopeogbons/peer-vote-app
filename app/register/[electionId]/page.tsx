@@ -43,19 +43,17 @@ export default function RegisterPage() {
 
     // Load election details and participant list
     async function load() {
-      const [elRes, parRes] = await Promise.all([
-        supabase.from('elections').select('id, title, status').eq('id', electionId).single(),
-        supabase
-          .from('candidates')
-          .select('id, name, created_at')
-          .eq('election_id', electionId)
-          .order('created_at', { ascending: true }),
-      ])
+      const elRes = await supabase.from('elections').select('id, title, status').eq('id', electionId).single()
       if (elRes.error || !elRes.data) {
         setLoadError('Election not found or the registration link is invalid.')
       } else {
         setElection(elRes.data as ElectionInfo)
       }
+      const parRes = await supabase
+        .from('candidates')
+        .select('id, name, created_at')
+        .eq('election_id', electionId)
+        .order('created_at', { ascending: true })
       if (parRes.data) setParticipants(parRes.data as Participant[])
       setLoading(false)
     }
