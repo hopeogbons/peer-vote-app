@@ -2,6 +2,8 @@
 
 A multi-round peer voting web app with self-registration, automatic email delivery, real-time lobby, and admin-controlled voting rounds.
 
+<img width="2062" height="1856" alt="peer-vote" src="https://github.com/user-attachments/assets/54c706fc-7f3b-4722-821a-f3ffcc0d450d" />
+
 ---
 
 ## How it works
